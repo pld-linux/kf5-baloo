@@ -27,6 +27,7 @@ BuildRequires:	Qt5Widgets-devel >= %{qtver}
 %endif
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
+BuildRequires:	kf5-kidletime-devel >= %{version}
 BuildRequires:	kf5-kfilemetadata-devel >= %{version}
 BuildRequires:	lmdb-devel
 BuildRequires:	qt5-build >= %{qtver}
