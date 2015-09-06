@@ -11,11 +11,12 @@
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
 Version:	5.13.0
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
 # Source0-md5:	67bceaf70f9da493161c0eb94a214099
+Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel >= %{qtver}
@@ -58,6 +59,7 @@ Pliki nagłówkowe dla programistów używających %{kfname}.
 
 %prep
 %setup -q -n %{kfname}-%{version}
+%patch0 -p1
 
 %build
 install -d build

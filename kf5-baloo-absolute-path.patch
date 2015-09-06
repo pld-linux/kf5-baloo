@@ -1,0 +1,10 @@
+--- baloo-5.13.0/KF5BalooConfig.cmake.in~	2015-08-04 12:42:23.000000000 +0200
++++ baloo-5.13.0/KF5BalooConfig.cmake.in	2015-09-06 20:24:34.782547657 +0200
+@@ -1,6 +1,6 @@
+ @PACKAGE_INIT@
+ 
+-set(BALOO_DBUS_INTERFACES_DIR "${PACKAGE_PREFIX_DIR}/@DBUS_INTERFACES_INSTALL_DIR@")
++set(BALOO_DBUS_INTERFACES_DIR "@DBUS_INTERFACES_INSTALL_DIR@")
+ 
+ find_dependency(Qt5Core)
+ find_dependency(KF5CoreAddons "@KF5_VERSION@")
