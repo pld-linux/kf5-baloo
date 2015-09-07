@@ -11,7 +11,7 @@
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
 Version:	5.13.0
-Release:	2
+Release:	3
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
@@ -28,8 +28,8 @@ BuildRequires:	Qt5Widgets-devel >= %{qtver}
 %endif
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
-BuildRequires:	kf5-kidletime-devel >= %{version}
 BuildRequires:	kf5-kfilemetadata-devel >= %{version}
+BuildRequires:	kf5-kidletime-devel >= %{version}
 BuildRequires:	lmdb-devel
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.164
@@ -104,6 +104,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/tags.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/timeline.so
 %dir %{_libdir}/qt5/qml/org/kde/baloo
+%{_libdir}/qt5/qml/org/kde/baloo/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/libbalooplugin.so
 %{_iconsdir}/hicolor/128x128/apps/baloo.png
 %{_datadir}/kservices5/baloosearch.protocol
@@ -120,4 +121,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/KF5/baloo_version.h
 %{_libdir}/cmake/KF5Baloo
 %{_pkgconfigdir}/Baloo.pc
-#%{_libdir}/qt5/mkspecs/modules/qt_Attica.pri
