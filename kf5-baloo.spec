@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.13
+%define		kdeframever	5.19
 %define		qtver		5.3.2
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.13.0
-Release:	3
+Version:	5.19.0
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	67bceaf70f9da493161c0eb94a214099
+# Source0-md5:	58351139c7bf473b08ab7fa3220ede8b
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -59,7 +59,6 @@ Pliki nagłówkowe dla programistów używających %{kfname}.
 
 %prep
 %setup -q -n %{kfname}-%{version}
-%patch0 -p1
 
 %build
 install -d build
@@ -76,47 +75,55 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%find_lang %{kfname}5 --all-name --with-kde
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files -f %{kfname}5.lang
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/baloo-monitor
+#%%attr(755,root,root) %{_bindir}/baloo-monitor
 %attr(755,root,root) %{_bindir}/baloo_file
 %attr(755,root,root) %{_bindir}/baloo_file_extractor
 %attr(755,root,root) %{_bindir}/balooctl
 %attr(755,root,root) %{_bindir}/baloosearch
 %attr(755,root,root) %{_bindir}/balooshow
-%attr(755,root,root) %{_libdir}/kauth/kde_baloo_filewatch_raiselimit
-/etc/dbus-1/system.d/org.kde.baloo.filewatch.conf
+#%%attr(755,root,root) %{_libdir}/kauth/kde_baloo_filewatch_raiselimit
+#/etc/dbus-1/system.d/org.kde.baloo.filewatch.conf
 /etc/xdg/autostart/baloo_file.desktop
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
-%{_datadir}/dbus-1/system-services/org.kde.baloo.filewatch.service
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.scheduler.xml
+#%%{_datadir}/dbus-1/system-services/org.kde.baloo.filewatch.service
 %attr(755,root,root) %{_libdir}/libKF5Baloo.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libKF5Baloo.so.5
 %attr(755,root,root) %{_libdir}/libKF5BalooEngine.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libKF5BalooEngine.so.5
-%attr(755,root,root) %{_libdir}/qt5/plugins/kded_baloosearch_kio.so
+%attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kded/baloosearchmodule.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/baloosearch.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/tags.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/timeline.so
 %dir %{_libdir}/qt5/qml/org/kde/baloo
+%dir %{_libdir}/qt5/qml/org/kde/baloo/experimental
 %{_libdir}/qt5/qml/org/kde/baloo/qmldir
+%{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/libbalooplugin.so
+%attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
 %{_iconsdir}/hicolor/128x128/apps/baloo.png
 %{_datadir}/kservices5/baloosearch.protocol
-%{_datadir}/kservices5/kded/baloosearchfolderupdater.desktop
+#%%{_datadir}/kservices5/kded/baloosearchfolderupdater.desktop
 %{_datadir}/kservices5/tags.protocol
 %{_datadir}/kservices5/timeline.protocol
-%{_datadir}/polkit-1/actions/org.kde.baloo.filewatch.policy
+#%%{_datadir}/polkit-1/actions/org.kde.baloo.filewatch.policy
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libKF5Baloo.so
-%attr(755,root,root) %{_libdir}/libKF5BalooEngine.so
+#%%attr(755,root,root) %{_libdir}/libKF5BalooEngine.so
 %{_includedir}/KF5/Baloo
 %{_includedir}/KF5/baloo_version.h
 %{_libdir}/cmake/KF5Baloo
