@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.39
-%define		qtver		5.3.2
+%define		kdeframever	5.53
+%define		qtver		5.9.0
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.39.0
-Release:	2
+Version:	5.53.0
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	77f987703e1d82b2ae3cfaf40105794a
+# Source0-md5:	deed1d430e5c9b73008ca45c78df9ee3
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -28,16 +28,16 @@ BuildRequires:	Qt5Widgets-devel >= %{qtver}
 %endif
 BuildRequires:	cmake >= 2.8.12
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
-BuildRequires:	kf5-kio-devel >= %{version}
 BuildRequires:	kf5-kfilemetadata-devel >= %{version}
 BuildRequires:	kf5-kidletime-devel >= %{version}
+BuildRequires:	kf5-kio-devel >= %{version}
 BuildRequires:	lmdb-devel
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
-Conflicts:	kde4-baloo
 Requires:	kf5-dirs
+Conflicts:	kde4-baloo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -97,6 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 #%%attr(755,root,root) %{_libdir}/kauth/kde_baloo_filewatch_raiselimit
 #/etc/dbus-1/system.d/org.kde.baloo.filewatch.conf
 /etc/xdg/autostart/baloo_file.desktop
+/etc/xdg/baloo.categories
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
@@ -122,6 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/kservices5/tags.protocol
 %{_datadir}/kservices5/timeline.protocol
 #%%{_datadir}/polkit-1/actions/org.kde.baloo.filewatch.policy
+%{_datadir}/dbus-1/interfaces/org.kde.BalooWatcherApplication.xml
 
 %files devel
 %defattr(644,root,root,755)
@@ -131,3 +133,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/KF5/baloo_version.h
 %{_libdir}/cmake/KF5Baloo
 %{_pkgconfigdir}/Baloo.pc
+%{_libdir}/qt5/mkspecs/modules/qt_Baloo.pri
