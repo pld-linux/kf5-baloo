@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.53
+%define		kdeframever	5.56
 %define		qtver		5.9.0
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.53.0
+Version:	5.56.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	deed1d430e5c9b73008ca45c78df9ee3
+# Source0-md5:	219106bf7fbd84ae7a98eb320eb3684b
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -32,6 +32,7 @@ BuildRequires:	kf5-kfilemetadata-devel >= %{version}
 BuildRequires:	kf5-kidletime-devel >= %{version}
 BuildRequires:	kf5-kio-devel >= %{version}
 BuildRequires:	lmdb-devel
+BuildRequires:	ninja
 BuildRequires:	qt5-build >= %{qtver}
 BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	tar >= 1:1.22
@@ -66,17 +67,16 @@ Pliki nagłówkowe dla programistów używających %{kfname}.
 %build
 install -d build
 cd build
-%cmake \
+%cmake -G Ninja \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
 	..
-%{__make}
+%ninja_build
 
-%{?with_tests:%{__make} test}
+%{?with_tests:%ninja_build test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} -C build install \
-	DESTDIR=$RPM_BUILD_ROOT
+%ninja_install -C build
 
 %find_lang %{kfname}5 --all-name --with-kde
 
