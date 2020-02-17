@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.65
+%define		kdeframever	5.67
 %define		qtver		5.9.0
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.65.0
+Version:	5.67.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	db298f7bd9da5732d5cd7207476b0633
+# Source0-md5:	05d339861c1b9082dc7b8f4822167954
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -117,7 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/libbalooplugin.so
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
-%{_iconsdir}/hicolor/128x128/apps/baloo.png
+#%{_iconsdir}/hicolor/128x128/apps/baloo.png
 %{_datadir}/kservices5/baloosearch.protocol
 #%%{_datadir}/kservices5/kded/baloosearchfolderupdater.desktop
 %{_datadir}/kservices5/tags.protocol
