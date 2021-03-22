@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.79
+%define		kdeframever	5.80
 %define		qtver		5.9.0
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.79.0
+Version:	5.80.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	http://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	4126fc0077942bcd09ecb5833010203f
+# Source0-md5:	85d9d705a3fb5cba748c6e36b980f621
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -88,25 +88,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{kfname}5.lang
 %defattr(644,root,root,755)
-#%%attr(755,root,root) %{_bindir}/baloo-monitor
 %attr(755,root,root) %{_bindir}/baloo_file
 %attr(755,root,root) %{_bindir}/baloo_file_extractor
 %attr(755,root,root) %{_bindir}/balooctl
 %attr(755,root,root) %{_bindir}/baloosearch
 %attr(755,root,root) %{_bindir}/balooshow
-#%%attr(755,root,root) %{_libdir}/kauth/kde_baloo_filewatch_raiselimit
-#/etc/dbus-1/system.d/org.kde.baloo.filewatch.conf
 /etc/xdg/autostart/baloo_file.desktop
 %{_datadir}/qlogging-categories5/baloo.categories
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.scheduler.xml
-#%%{_datadir}/dbus-1/system-services/org.kde.baloo.filewatch.service
 %attr(755,root,root) %{_libdir}/libKF5Baloo.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKF5Baloo.so.5
+%ghost %{_libdir}/libKF5Baloo.so.5
 %attr(755,root,root) %{_libdir}/libKF5BalooEngine.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libKF5BalooEngine.so.5
+%ghost %{_libdir}/libKF5BalooEngine.so.5
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kded/baloosearchmodule.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/baloosearch.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/tags.so
@@ -117,19 +113,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/libbalooplugin.so
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
-#%{_iconsdir}/hicolor/128x128/apps/baloo.png
 %{_datadir}/kservices5/baloosearch.protocol
-#%%{_datadir}/kservices5/kded/baloosearchfolderupdater.desktop
 %{_datadir}/kservices5/tags.protocol
 %{_datadir}/kservices5/timeline.protocol
-#%%{_datadir}/polkit-1/actions/org.kde.baloo.filewatch.policy
 %{_datadir}/dbus-1/interfaces/org.kde.BalooWatcherApplication.xml
 %{_datadir}/qlogging-categories5/baloo.renamecategories
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libKF5Baloo.so
-#%%attr(755,root,root) %{_libdir}/libKF5BalooEngine.so
+%{_libdir}/libKF5Baloo.so
 %{_includedir}/KF5/Baloo
 %{_includedir}/KF5/baloo_version.h
 %{_libdir}/cmake/KF5Baloo
