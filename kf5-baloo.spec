@@ -5,17 +5,17 @@
 # TODO:
 # - runtime Requires if any
 
-%define		kdeframever	5.108
+%define		kdeframever	5.109
 %define		qtver		5.15.2
 %define		kfname		baloo
 Summary:	A  file indexing and file search framework
 Name:		kf5-%{kfname}
-Version:	5.108.0
-Release:	2
+Version:	5.109.0
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
-# Source0-md5:	48ab680d179e2d386b5f9ace03924464
+# Source0-md5:	2d0a01f671615c6a1559eaa4d73193c2
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= %{qtver}
@@ -26,7 +26,7 @@ BuildRequires:	Qt5Test-devel >= %{qtver}
 BuildRequires:	Qt5Gui-devel >= %{qtver}
 BuildRequires:	Qt5Widgets-devel >= %{qtver}
 %endif
-BuildRequires:	cmake >= 2.8.12
+BuildRequires:	cmake >= 3.16
 BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
 BuildRequires:	kf5-kfilemetadata-devel >= %{version}
 BuildRequires:	kf5-kidletime-devel >= %{version}
@@ -65,15 +65,14 @@ Pliki nagłówkowe dla programistów używających %{kfname}.
 %setup -q -n %{kfname}-%{version}
 
 %build
-install -d build
-cd build
-%cmake -G Ninja \
+%cmake -B build \
+	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	..
-%ninja_build
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
 
-%{?with_tests:%ninja_build test}
+%ninja_build -C build
+
+%{?with_tests:%ninja_build -C build test}
 
 
 %install
