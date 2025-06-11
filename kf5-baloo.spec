@@ -43,6 +43,10 @@ BuildRequires:	qt5-build >= %{qt_ver}
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	Qt5Core >= %{qt_ver}
+Requires:	Qt5DBus >= %{qt_ver}
+Requires:	Qt5Gui >= %{qt_ver}
+Requires:	Qt5Qml >= %{qt_ver}
 Requires:	kf5-dirs
 Requires:	kf5-kconfig >= %{kf_ver}
 Requires:	kf5-kcoreaddons >= %{kf_ver}
