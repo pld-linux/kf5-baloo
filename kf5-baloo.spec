@@ -102,12 +102,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/balooctl
 %attr(755,root,root) %{_bindir}/baloosearch
 %attr(755,root,root) %{_bindir}/balooshow
-/etc/xdg/autostart/baloo_file.desktop
-%{_datadir}/qlogging-categories5/baloo.categories
-%{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
-%{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
-%{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
-%{_datadir}/dbus-1/interfaces/org.kde.baloo.scheduler.xml
+%attr(755,root,root) %{_libexecdir}/baloo_file
+%attr(755,root,root) %{_libexecdir}/baloo_file_extractor
 %attr(755,root,root) %{_libdir}/libKF5Baloo.so.*.*.*
 %ghost %{_libdir}/libKF5Baloo.so.5
 %attr(755,root,root) %{_libdir}/libKF5BalooEngine.so.*.*.*
@@ -117,16 +113,20 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/tags.so
 %attr(755,root,root) %{_libdir}/qt5/plugins/kf5/kio/timeline.so
 %dir %{_libdir}/qt5/qml/org/kde/baloo
-%dir %{_libdir}/qt5/qml/org/kde/baloo/experimental
-%{_libdir}/qt5/qml/org/kde/baloo/qmldir
-%{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/libbalooplugin.so
+%{_libdir}/qt5/qml/org/kde/baloo/qmldir
+%dir %{_libdir}/qt5/qml/org/kde/baloo/experimental
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
+%{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
 %{_datadir}/dbus-1/interfaces/org.kde.BalooWatcherApplication.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
+%{_datadir}/dbus-1/interfaces/org.kde.baloo.scheduler.xml
+%{_datadir}/qlogging-categories5/baloo.categories
 %{_datadir}/qlogging-categories5/baloo.renamecategories
 %{systemduserunitdir}/kde-baloo.service
-%attr(755,root,root) %{_prefix}/libexec/baloo_file
-%attr(755,root,root) %{_prefix}/libexec/baloo_file_extractor
+/etc/xdg/autostart/baloo_file.desktop
 
 %files devel
 %defattr(644,root,root,755)
