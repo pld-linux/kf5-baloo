@@ -10,7 +10,7 @@ Summary:	A file indexing and file search framework
 Summary(pl.UTF-8):	Szkielet indeksowania i wyszukiwania plików
 Name:		kf5-%{kfname}
 Version:	5.116.0
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{version}.tar.xz
@@ -43,6 +43,8 @@ BuildRequires:	qt5-build >= %{qt_ver}
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+# allow using also service from kf6-baloo (for parallel install of kf5-baloo and kf6-baloo)
+Requires:	%{name}-service >= %{version}-%{release}
 Requires:	Qt5Core >= %{qt_ver}
 Requires:	Qt5DBus >= %{qt_ver}
 Requires:	Qt5Gui >= %{qt_ver}
@@ -73,6 +75,19 @@ Baloo to szkielet indeksowania i wyszukiwania plików dla KDE.
 Skupia się na połączeniu bardzo małego zużycia pamięci wraz z bardzo
 szybkim wyszukiwaniem. Wewnętrznie używa połączenia rozwiązań SQLite i
 Xapian do przchowywania indeksu plików.
+
+%package service
+Summary:	Baloo background indexer service
+Summary(pl.UTF-8):	Usługa Baloo indeksująca w tle
+Group:		Daemons
+Requires:	%{name} = %{version}-%{release}
+Conflicts:	kf6-baloo
+
+%description service
+Baloo background indexer service.
+
+%description service -l pl.UTF-8
+Usługa Baloo indeksująca w tle.
 
 %package devel
 Summary:	Header files for %{kfname} development
@@ -118,13 +133,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{kfname}5.lang
 %defattr(644,root,root,755)
 %doc README.md
-%attr(755,root,root) %{_bindir}/baloo_file
-%attr(755,root,root) %{_bindir}/baloo_file_extractor
-%attr(755,root,root) %{_bindir}/balooctl
 %attr(755,root,root) %{_bindir}/baloosearch
 %attr(755,root,root) %{_bindir}/balooshow
-%attr(755,root,root) %{_libexecdir}/baloo_file
-%attr(755,root,root) %{_libexecdir}/baloo_file_extractor
 %attr(755,root,root) %{_libdir}/libKF5Baloo.so.*.*.*
 %ghost %{_libdir}/libKF5Baloo.so.5
 %attr(755,root,root) %{_libdir}/libKF5BalooEngine.so.*.*.*
@@ -139,13 +149,21 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/qt5/qml/org/kde/baloo/experimental
 %attr(755,root,root) %{_libdir}/qt5/qml/org/kde/baloo/experimental/libbaloomonitorplugin.so
 %{_libdir}/qt5/qml/org/kde/baloo/experimental/qmldir
+%{_datadir}/qlogging-categories5/baloo.categories
+%{_datadir}/qlogging-categories5/baloo.renamecategories
+
+%files service
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/baloo_file
+%attr(755,root,root) %{_bindir}/baloo_file_extractor
+%attr(755,root,root) %{_bindir}/balooctl
+%attr(755,root,root) %{_libexecdir}/baloo_file
+%attr(755,root,root) %{_libexecdir}/baloo_file_extractor
 %{_datadir}/dbus-1/interfaces/org.kde.BalooWatcherApplication.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.file.indexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.fileindexer.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.main.xml
 %{_datadir}/dbus-1/interfaces/org.kde.baloo.scheduler.xml
-%{_datadir}/qlogging-categories5/baloo.categories
-%{_datadir}/qlogging-categories5/baloo.renamecategories
 %{systemduserunitdir}/kde-baloo.service
 /etc/xdg/autostart/baloo_file.desktop
 
