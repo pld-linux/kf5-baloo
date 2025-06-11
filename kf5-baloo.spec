@@ -2,11 +2,9 @@
 # Conditional build:
 %bcond_with	tests		# test suite
 
-# TODO:
-# - runtime Requires if any
-
 %define		kdeframever	5.116
-%define		qtver		5.15.2
+%define		kf_ver		%{version}
+%define		qt_ver		5.15.2
 %define		kfname		baloo
 Summary:	A file indexing and file search framework
 Summary(pl.UTF-8):	Szkielet indeksowania i wyszukiwania plików
@@ -19,26 +17,42 @@ Source0:	https://download.kde.org/stable/frameworks/%{kdeframever}/%{kfname}-%{v
 # Source0-md5:	41fd11dfe5af84d2bbd214e4e04d41e9
 Patch0:		kf5-baloo-absolute-path.patch
 URL:		https://kde.org/
-BuildRequires:	Qt5Core-devel >= %{qtver}
-BuildRequires:	Qt5Gui-devel >= %{qtver}
-BuildRequires:	Qt5Network-devel >= %{qtver}
-BuildRequires:	Qt5Test-devel >= %{qtver}
-%if %{with tests}
-BuildRequires:	Qt5Gui-devel >= %{qtver}
-BuildRequires:	Qt5Widgets-devel >= %{qtver}
-%endif
+BuildRequires:	Qt5Core-devel >= %{qt_ver}
+BuildRequires:	Qt5DBus-devel >= %{qt_ver}
+BuildRequires:	Qt5Gui-devel >= %{qt_ver}
+BuildRequires:	Qt5Network-devel >= %{qt_ver}
+BuildRequires:	Qt5Qml-devel >= %{qt_ver}
+BuildRequires:	Qt5Quick-devel >= %{qt_ver}
+BuildRequires:	Qt5Test-devel >= %{qt_ver}
+BuildRequires:	Qt5Widgets-devel >= %{qt_ver}
 BuildRequires:	cmake >= 3.16
-BuildRequires:	kf5-extra-cmake-modules >= 1.4.0
-BuildRequires:	kf5-kfilemetadata-devel >= %{version}
-BuildRequires:	kf5-kidletime-devel >= %{version}
-BuildRequires:	kf5-kio-devel >= %{version}
+BuildRequires:	gettext-tools
+BuildRequires:	kf5-extra-cmake-modules >= %{kf_ver}
+BuildRequires:	kf5-kconfig-devel >= %{kf_ver}
+BuildRequires:	kf5-kcoreaddons-devel >= %{kf_ver}
+BuildRequires:	kf5-kcrash-devel >= %{kf_ver}
+BuildRequires:	kf5-kdbusaddons-devel >= %{kf_ver}
+BuildRequires:	kf5-kfilemetadata-devel >= %{kf_ver}
+BuildRequires:	kf5-ki18n-devel >= %{kf_ver}
+BuildRequires:	kf5-kidletime-devel >= %{kf_ver}
+BuildRequires:	kf5-kio-devel >= %{kf_ver}
+BuildRequires:	kf5-solid-devel >= %{kf_ver}
 BuildRequires:	lmdb-devel
 BuildRequires:	ninja
-BuildRequires:	qt5-build >= %{qtver}
-BuildRequires:	rpmbuild(macros) >= 1.164
+BuildRequires:	qt5-build >= %{qt_ver}
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 Requires:	kf5-dirs
+Requires:	kf5-kconfig >= %{kf_ver}
+Requires:	kf5-kcoreaddons >= %{kf_ver}
+Requires:	kf5-kcrash >= %{kf_ver}
+Requires:	kf5-kdbusaddons >= %{kf_ver}
+Requires:	kf5-kfilemetadata >= %{kf_ver}
+Requires:	kf5-ki18n >= %{kf_ver}
+Requires:	kf5-kidletime >= %{kf_ver}
+Requires:	kf5-kio >= %{kf_ver}
+Requires:	kf5-solid >= %{kf_ver}
 Conflicts:	kde4-baloo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -61,7 +75,9 @@ Summary:	Header files for %{kfname} development
 Summary(pl.UTF-8):	Pliki nagłówkowe dla programistów używających %{kfname}
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	kf5-kfilemetadata-devel >= %{version}
+Requires:	Qt5Core-devel >= %{qt_ver}
+Requires:	kf5-kcoreaddons-devel >= %{kf_ver}
+Requires:	kf5-kfilemetadata-devel >= %{kf_ver}
 
 %description devel
 Header files for %{kfname} development.
@@ -87,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
 
-%find_lang %{kfname}5 --all-name --with-kde
+%find_lang %{kfname}5 --all-name
 
 %clean
 rm -rf $RPM_BUILD_ROOT
