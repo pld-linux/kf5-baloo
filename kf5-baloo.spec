@@ -97,6 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{kfname}5.lang
 %defattr(644,root,root,755)
+%doc README.md
 %attr(755,root,root) %{_bindir}/baloo_file
 %attr(755,root,root) %{_bindir}/baloo_file_extractor
 %attr(755,root,root) %{_bindir}/balooctl
